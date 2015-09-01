@@ -43,7 +43,7 @@ var ManifestValidator = (function() {
     var display = _parseString({ property: 'display', trim: true });
     if (display === undefined)
       return display;
-    if (ALLOWED_DISPLAY_VALUES.indexOf(display) == -1) {
+    if (ALLOWED_DISPLAY_VALUES.indexOf(display.toLowerCase()) == -1) {
       _logs.push('ERROR: "display" has an invalid value, will be ignored.');
       return undefined;
     }
