@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset='utf-8'>
   <title>Web Manifest Validator</title>
   <script src='ui.js' async></script>
   <script src='validator.js' async></script>
 </head>
 <body>
+  <h3>Web Manifest Validator</h3>
+  <div>This page is meant to be used to test the validity of a Web Manifest
+  before deployment. The parser follows the rules from the <a href=
+  "https://w3c.github.io/manifest/">W3C specification</a></div>
+  <br>
+  <div style="font-weight: bold;">NOTE: the parser isn't fully implemented yet.
+  This is still work in progress.</div>
+  <br>
   <input type='file'>
-  <div id='log' style='white-space: pre-wap'></div>
+  <div id='log'></div>
 </body>
 </html>
