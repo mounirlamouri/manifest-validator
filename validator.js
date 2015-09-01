@@ -11,6 +11,15 @@ var ManifestValidator = (function() {
                                  'minimal-ui',
                                  'browser' ];
 
+  var ALLOWED_ORIENTATION_VALUES = [ 'any',
+                                     'natural',
+                                     'landscape',
+                                     'portrait',
+                                     'portrait-primary',
+                                     'portrait-secondary',
+                                     'landscape-primary',
+                                     'landscape-secondary' ];
+
   function _parseString(args) {
     var property = args.property;
     if (!(property in _json_input))
@@ -43,12 +52,26 @@ var ManifestValidator = (function() {
     var display = _parseString({ property: 'display', trim: true });
     if (display === undefined)
       return display;
+
     if (ALLOWED_DISPLAY_VALUES.indexOf(display.toLowerCase()) == -1) {
       _logs.push('ERROR: "display" has an invalid value, will be ignored.');
       return undefined;
     }
 
     return display;
+  }
+
+  function _parseOrientation() {
+    var orientation = _parseString({ property: 'orientation', trim: true });
+    if (orientation === undefined)
+      return orientation;
+
+    if (ALLOWED_ORIENTATION_VALUES.indexOf(orientation.toLowerCase()) == -1) {
+      _logs.push('ERROR: "orientation" has an invalid value, will be ignored.');
+      return undefined;
+    }
+
+    return orientation;
   }
 
   function _check(string) {
@@ -65,11 +88,19 @@ var ManifestValidator = (function() {
     _manifest.short_name = _parseShortName();
     _manifest.start_url= _parseStartUrl();
     _manifest.display = _parseDisplay();
+    _manifest.orientation = _parseOrientation();
+
+    // TODO: parse icons
+    // TODO: parse related_applications
+    // TODO: parse prefer_related_applications
+    // TODO: parse theme_color
+    // TODO: parse background_color
 
     _logs.push('Parsed `name` property is: ' + _manifest.name);
     _logs.push('Parsed `short_name` property is: ' + _manifest.short_name);
     _logs.push('Parsed `start_url` property is: ' + _manifest.start_url);
     _logs.push('Parsed `display` property is: ' + _manifest.display);
+    _logs.push('Parsed `orientation` property is: ' + _manifest.orientation);
 
     return [ true, _logs ];
   }
