@@ -35,6 +35,20 @@ var ManifestValidator = (function() {
     return _json_input[property];
   }
 
+  function _parseBoolean(args) {
+    var property = args.property;
+    var defaultValue = args.defaultValue;
+    if (!(property in _json_input))
+      return defaultValue;
+
+    if (typeof _json_input[property] != 'boolean') {
+      _logs.push('ERROR: "' + property + '" expected to be a boolean but is not.');
+      return defaultValue;
+    }
+
+    return _json_input[property];
+  }
+
   function _parseName() {
     return _parseString({ property: 'name', trim: true });
   }
@@ -74,6 +88,25 @@ var ManifestValidator = (function() {
     return orientation;
   }
 
+  function _parseRelatedApplications() {
+    var property = 'related_applications';
+    if (!(property in _json_input))
+      return [];
+
+    if (!Array.isArray(_json_input.property)) {
+      _logs.push('ERROR: "' + property + '" expected to be an array but is not.');
+      return [];
+    }
+
+    // TODO: finish
+
+    return [];
+  }
+
+  function _parsePreferRelatedApplications() {
+    return _parseBoolean({ property: 'prefer_related_applications', defaultValue: false });
+  }
+
   function _check(string) {
     try {
       _json_input = JSON.parse(string);
@@ -91,8 +124,11 @@ var ManifestValidator = (function() {
     _manifest.orientation = _parseOrientation();
 
     // TODO: parse icons
-    // TODO: parse related_applications
-    // TODO: parse prefer_related_applications
+
+    // TODO: finish related_applications
+    _manifest.related_applications = _parseRelatedApplications();
+    _manifest.prefer_related_applications = _parsePreferRelatedApplications();
+
     // TODO: parse theme_color
     // TODO: parse background_color
 
@@ -101,6 +137,8 @@ var ManifestValidator = (function() {
     _logs.push('Parsed `start_url` property is: ' + _manifest.start_url);
     _logs.push('Parsed `display` property is: ' + _manifest.display);
     _logs.push('Parsed `orientation` property is: ' + _manifest.orientation);
+    _logs.push('Parsed `related_applications` property is: ' + _manifest.related_applications);
+    _logs.push('Parsed `prefer_related_applications` property is: ' + _manifest.prefer_related_applications);
 
     return [ true, _logs ];
   }
