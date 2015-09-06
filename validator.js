@@ -134,6 +134,10 @@ var ManifestValidator = (function() {
     return _parseColor('theme_color');
   }
 
+  function _parseBackgroundColor() {
+    return _parseColor('background_color');
+  }
+
   function _check(string) {
     try {
       _json_input = JSON.parse(string);
@@ -156,8 +160,7 @@ var ManifestValidator = (function() {
     _manifest.related_applications = _parseRelatedApplications();
     _manifest.prefer_related_applications = _parsePreferRelatedApplications();
     _manifest.theme_color = _parseThemeColor();
-
-    // TODO: parse background_color
+    _manifest.background_color = _parseBackgroundColor();
 
     _logs.push('Parsed `name` property is: ' + _manifest.name);
     _logs.push('Parsed `short_name` property is: ' + _manifest.short_name);
@@ -167,6 +170,7 @@ var ManifestValidator = (function() {
     _logs.push('Parsed `related_applications` property is: ' + _manifest.related_applications);
     _logs.push('Parsed `prefer_related_applications` property is: ' + _manifest.prefer_related_applications);
     _logs.push('Parsed `theme_color` property is: ' + _manifest.theme_color);
+    _logs.push('Parsed `background_color` property is: ' + _manifest.background_color);
 
     return [ true, _logs ];
   }
