@@ -49,6 +49,29 @@ var ManifestValidator = (function() {
     return _json_input[property];
   }
 
+  function _parseColor(property) {
+    if (!(property in _json_input))
+      return undefined;
+
+    if (typeof _json_input[property] != 'string') {
+      _logs.push('ERROR: "' + property + '" expected to be a string but is not.');
+      return undefined;
+    }
+
+    // If style.color changes when set to the given color, it is valid. Testing
+    // against 'white' and 'black' in case of the given color is one of them.
+    var dummy = document.createElement('div');
+    dummy.style.color = 'white';
+    dummy.style.color = _json_input[property];
+    if (dummy.style.color != 'white')
+      return _json_input[property];
+    dummy.style.color = 'black';
+    dummy.style.color = _json_input[property];
+    if (dummy.style.color != 'black')
+      return _json_input[property];
+    return undefined;
+  }
+
   function _parseName() {
     return _parseString({ property: 'name', trim: true });
   }
@@ -107,6 +130,10 @@ var ManifestValidator = (function() {
     return _parseBoolean({ property: 'prefer_related_applications', defaultValue: false });
   }
 
+  function _parseThemeColor() {
+    return _parseColor('theme_color');
+  }
+
   function _check(string) {
     try {
       _json_input = JSON.parse(string);
@@ -128,8 +155,8 @@ var ManifestValidator = (function() {
     // TODO: finish related_applications
     _manifest.related_applications = _parseRelatedApplications();
     _manifest.prefer_related_applications = _parsePreferRelatedApplications();
+    _manifest.theme_color = _parseThemeColor();
 
-    // TODO: parse theme_color
     // TODO: parse background_color
 
     _logs.push('Parsed `name` property is: ' + _manifest.name);
@@ -139,6 +166,7 @@ var ManifestValidator = (function() {
     _logs.push('Parsed `orientation` property is: ' + _manifest.orientation);
     _logs.push('Parsed `related_applications` property is: ' + _manifest.related_applications);
     _logs.push('Parsed `prefer_related_applications` property is: ' + _manifest.prefer_related_applications);
+    _logs.push('Parsed `theme_color` property is: ' + _manifest.theme_color);
 
     return [ true, _logs ];
   }
