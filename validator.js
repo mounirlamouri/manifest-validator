@@ -135,6 +135,50 @@ var ManifestValidator = (function() {
     return orientation;
   }
 
+  function _parseIcons() {
+    var property = 'icons';
+    var icons = [];
+
+    if (!(property in _json_input))
+      return icons;
+
+    if (!Array.isArray(_json_input[property])) {
+      _logs.push('ERROR: "' + property + '" expected to be an array but is not.');
+      return icons;
+    }
+
+    _json_input[property].forEach(function(object) {
+      var icon = {};
+      if (!('src' in object))
+        return;
+      // TODO: pass manifest url as base.
+      icon.src = _parseURL({ object: object, property: 'src' });
+      icon.type = _parseString({ object: object,
+                                 property: 'type',
+                                 trim: true });
+
+      icon.density = parseFloat(object['density']);
+      if (isNaN(icon.density) || !isFinite(icon.density) || icon.density <= 0)
+        icon.density = 1.0;
+
+      if ('sizes' in object) {
+        var set = new Set();
+        var link = document.createElement('link');
+        link.sizes = object['sizes'];
+
+        for (var i = 0; i < link.sizes.length; ++i)
+          set.add(link.sizes.item(i).toLowerCase());
+
+        if (set.size != 0)
+          icon.sizes = set;
+      }
+
+      icons.push(icon);
+    });
+
+    return icons;
+  }
+
   function _parseRelatedApplications() {
     var property = 'related_applications';
     var applications = [];
@@ -147,17 +191,17 @@ var ManifestValidator = (function() {
       return applications;
     }
 
-    _json_input[property].forEach(function(application) {
-      application.platform = _parseString({ object: application,
+    _json_input[property].forEach(function(object) {
+      var application = {};
+      application.platform = _parseString({ object: object,
                                             property: 'platform',
                                             trim: true });
-      application.id = _parseString({ object: application,
+      application.id = _parseString({ object: object,
                                       property: 'id',
                                       trim: true });
       // TODO: pass manfiest url as base.
-      application.url = _parseURL({ object: application, property: 'url' });
+      application.url = _parseURL({ object: object, property: 'url' });
       applications.push(application);
-      console.log(application);
     });
 
     return applications;
@@ -192,9 +236,7 @@ var ManifestValidator = (function() {
     _manifest.start_url= _parseStartUrl();
     _manifest.display = _parseDisplay();
     _manifest.orientation = _parseOrientation();
-
-    // TODO: parse icons
-
+    _manifest.icons = _parseIcons();
     _manifest.related_applications = _parseRelatedApplications();
     _manifest.prefer_related_applications = _parsePreferRelatedApplications();
     _manifest.theme_color = _parseThemeColor();
@@ -205,6 +247,7 @@ var ManifestValidator = (function() {
     _logs.push('Parsed `start_url` property is: ' + _manifest.start_url);
     _logs.push('Parsed `display` property is: ' + _manifest.display);
     _logs.push('Parsed `orientation` property is: ' + _manifest.orientation);
+    _logs.push('Parsed `icons` property is: ' + _manifest.icons);
     _logs.push('Parsed `related_applications` property is: ' + _manifest.related_applications);
     _logs.push('Parsed `prefer_related_applications` property is: ' + _manifest.prefer_related_applications);
     _logs.push('Parsed `theme_color` property is: ' + _manifest.theme_color);
