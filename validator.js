@@ -154,6 +154,7 @@ var ManifestValidator = (function() {
       application.id = _parseString({ object: application,
                                       property: 'id',
                                       trim: true });
+      // TODO: pass manfiest url as base.
       application.url = _parseURL({ object: application, property: 'url' });
       applications.push(application);
       console.log(application);
