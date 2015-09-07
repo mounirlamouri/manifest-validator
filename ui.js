@@ -22,12 +22,12 @@ document.querySelector('input').onchange = function() {
       _log('ERROR: cannot read the file.');
     };
     reader.onload = function() {
-      var [ result, logs ] = ManifestValidator.check(this.result);
-      logs.forEach(function(log) {
+      ManifestParser.parse(this.result);
+      ManifestParser.logs().forEach(function(log) {
         _log(log);
       });
 
-      if (!result)
+      if (!ManifestParser.success())
         _log('ERROR: Manifest is invalid, see errors above.');
       else
         _log('SUCCESS: Manifest is valid!');
