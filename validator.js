@@ -21,39 +21,57 @@ var ManifestValidator = (function() {
                                      'landscape-secondary' ];
 
   function _parseString(args) {
+    var object = args.object;
     var property = args.property;
-    if (!(property in _json_input))
+    if (!(property in object))
       return undefined;
 
-    if (typeof _json_input[property] != 'string') {
+    if (typeof object[property] != 'string') {
       _logs.push('ERROR: "' + property + '" expected to be a string but is not.');
       return undefined;
     }
 
     if (args.trim)
-      return _json_input[property].trim();
-    return _json_input[property];
+      return object[property].trim();
+    return object[property];
   }
 
   function _parseBoolean(args) {
+    var object = args.object;
     var property = args.property;
     var defaultValue = args.defaultValue;
-    if (!(property in _json_input))
+    if (!(property in object))
       return defaultValue;
 
-    if (typeof _json_input[property] != 'boolean') {
+    if (typeof object[property] != 'boolean') {
       _logs.push('ERROR: "' + property + '" expected to be a boolean but is not.');
       return defaultValue;
     }
 
-    return _json_input[property];
+    return object[property];
   }
 
-  function _parseColor(property) {
-    if (!(property in _json_input))
+  function _parseURL(args) {
+    var object = args.object;
+    var property = args.property;
+    var baseURL = args.baseURL;
+
+    var str = _parseString({ object: object, property: property, trim: false });
+    if (str === undefined)
       return undefined;
 
-    if (typeof _json_input[property] != 'string') {
+    // TODO: resolve url using baseURL
+    // new URL(object[property], baseURL);
+    return object[property];
+  }
+
+  function _parseColor(args) {
+    var object = args.object;
+    var property = args.property;
+    if (!(property in object))
+      return undefined;
+
+    if (typeof object[property] != 'string') {
       _logs.push('ERROR: "' + property + '" expected to be a string but is not.');
       return undefined;
     }
@@ -62,31 +80,35 @@ var ManifestValidator = (function() {
     // against 'white' and 'black' in case of the given color is one of them.
     var dummy = document.createElement('div');
     dummy.style.color = 'white';
-    dummy.style.color = _json_input[property];
+    dummy.style.color = object[property];
     if (dummy.style.color != 'white')
-      return _json_input[property];
+      return object[property];
     dummy.style.color = 'black';
-    dummy.style.color = _json_input[property];
+    dummy.style.color = object[property];
     if (dummy.style.color != 'black')
-      return _json_input[property];
+      return object[property];
     return undefined;
   }
 
   function _parseName() {
-    return _parseString({ property: 'name', trim: true });
+    return _parseString({ object: _json_input, property: 'name', trim: true });
   }
 
   function _parseShortName() {
-    return _parseString({ property: 'short_name', trim: true });
+    return _parseString({ object: _json_input,
+                          property: 'short_name',
+                          trim: true });
   }
 
   function _parseStartUrl() {
     // TODO: parse url using manifest_url as a base (missing).
-    return _parseString({ property: 'start_url', trim: false });
+    return _parseURL({ object: _json_input, property: 'start_url' });
   }
 
   function _parseDisplay() {
-    var display = _parseString({ property: 'display', trim: true });
+    var display = _parseString({ object: _json_input,
+                                 property: 'display',
+                                 trim: true });
     if (display === undefined)
       return display;
 
@@ -99,7 +121,9 @@ var ManifestValidator = (function() {
   }
 
   function _parseOrientation() {
-    var orientation = _parseString({ property: 'orientation', trim: true });
+    var orientation = _parseString({ object: _json_input,
+                                     property: 'orientation',
+                                     trim: true });
     if (orientation === undefined)
       return orientation;
 
@@ -113,29 +137,43 @@ var ManifestValidator = (function() {
 
   function _parseRelatedApplications() {
     var property = 'related_applications';
-    if (!(property in _json_input))
-      return [];
+    var applications = [];
 
-    if (!Array.isArray(_json_input.property)) {
+    if (!(property in _json_input))
+      return applications;
+
+    if (!Array.isArray(_json_input[property])) {
       _logs.push('ERROR: "' + property + '" expected to be an array but is not.');
-      return [];
+      return applications;
     }
 
-    // TODO: finish
+    _json_input[property].forEach(function(application) {
+      application.platform = _parseString({ object: application,
+                                            property: 'platform',
+                                            trim: true });
+      application.id = _parseString({ object: application,
+                                      property: 'id',
+                                      trim: true });
+      application.url = _parseURL({ object: application, property: 'url' });
+      applications.push(application);
+      console.log(application);
+    });
 
-    return [];
+    return applications;
   }
 
   function _parsePreferRelatedApplications() {
-    return _parseBoolean({ property: 'prefer_related_applications', defaultValue: false });
+    return _parseBoolean({ object: _json_input,
+                           property: 'prefer_related_applications',
+                           defaultValue: false });
   }
 
   function _parseThemeColor() {
-    return _parseColor('theme_color');
+    return _parseColor({ object: _json_input, property: 'theme_color' });
   }
 
   function _parseBackgroundColor() {
-    return _parseColor('background_color');
+    return _parseColor({ object: _json_input, property: 'background_color' });
   }
 
   function _check(string) {
@@ -156,7 +194,6 @@ var ManifestValidator = (function() {
 
     // TODO: parse icons
 
-    // TODO: finish related_applications
     _manifest.related_applications = _parseRelatedApplications();
     _manifest.prefer_related_applications = _parsePreferRelatedApplications();
     _manifest.theme_color = _parseThemeColor();
