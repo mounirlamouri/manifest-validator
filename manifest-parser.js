@@ -225,6 +225,7 @@ var ManifestParser = (function() {
   function _parse(string) {
     // TODO: temporary while ManifestParser is a collection of static methods.
     _logs = [];
+    _success = true;
 
     try {
       _json_input = JSON.parse(string);
