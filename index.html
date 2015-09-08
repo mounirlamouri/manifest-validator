@@ -15,7 +15,23 @@
   <div style="font-weight: bold;">NOTE: the parser should be working. Next step
   is for the validator to take URLs instead of local files.</div>
   <br>
-  <input type='file'>
-  <div id='log'></div>
+  <fieldset>
+    <legend>Paste a Manifest</legend>
+    <textarea id='manifest-source' cols=80 rows=20 style="font-family: Courier New,monospace;"></textarea>
+    <br>
+    <button id='check-source'>Check</button>
+  </fieldset>
+
+  <div>OR</div>
+
+  <fieldset>
+    <legend>Upload a Manifest</legend>
+    <input type='file'>
+  </fieldset>
+
+  <fieldset>
+    <legend>Logs</legend>
+    <div id='log'></div>
+  </fieldset>
 </body>
 </html>

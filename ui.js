@@ -8,7 +8,18 @@ function _log(str) {
   document.querySelector('#log').appendChild(line);
 }
 
-document.querySelector('input').onchange = function() {
+function _showParserLogs() {
+  ManifestParser.logs().forEach(function(log) {
+    _log(log);
+  });
+
+  if (!ManifestParser.success())
+    _log('ERROR: Manifest is invalid, see errors above.');
+  else
+    _log('SUCCESS: Manifest is valid!');
+}
+
+document.querySelector('input[type=file]').onchange = function() {
   if (!this.files)
     return;
   _clearLogs();
@@ -23,14 +34,14 @@ document.querySelector('input').onchange = function() {
     };
     reader.onload = function() {
       ManifestParser.parse(this.result);
-      ManifestParser.logs().forEach(function(log) {
-        _log(log);
-      });
-
-      if (!ManifestParser.success())
-        _log('ERROR: Manifest is invalid, see errors above.');
-      else
-        _log('SUCCESS: Manifest is valid!');
+      _showParserLogs();
     };
   }
+}
+
+document.querySelector('#check-source').onclick = function(e) {
+  _clearLogs();
+
+  ManifestParser.parse(document.querySelector('#manifest-source').value);
+  _showParserLogs();
 }
