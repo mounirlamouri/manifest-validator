@@ -1,6 +1,5 @@
-"use strict";
-
 var ManifestParser = (function() {
+  "use strict";
 
   var _json_input = {};
   var _manifest = {};
