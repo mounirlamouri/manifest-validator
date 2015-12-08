@@ -266,3 +266,7 @@ var ManifestParser = (function() {
     success: function() { return _success; }
   };
 })();
+
+if (typeof module !== 'undefined' && module.exports) {
+ module.exports = ManifestParser;
+}
