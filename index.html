@@ -3,12 +3,72 @@
 <head>
   <meta charset='utf-8'>
   <title>Web Manifest Validator</title>
-  <script src='ui.js' async></script>
+  <!--  <script src='ui.js' async></script>-->
   <script src='manifest-parser.js' async></script>
+  <script src='bower_components/webcomponentsjs/webcomponents-lite.min.js'></script>
+  <link rel='import' href='bower_components/polymer/polymer.html'></link>
+  <link rel='import' href='bower_components/neon-animation/neon-animated-pages.html'></link>
+  <link rel='import' href='bower_components/paper-drawer-panel/paper-drawer-panel.html'></link>
+  <link rel='import' href='bower_components/paper-menu/paper-menu.html'></link>
+  <link rel='import' href='bower_components/paper-item/paper-item.html'></link>
+  <link rel='import' href='bower_components/paper-toolbar/paper-toolbar.html'></link>
+  <link rel='import' href='bower_components/iron-icons/iron-icons.html'></link>
 </head>
-<body>
+<body unresolved>
 <a href="https://github.com/mounirlamouri/manifest-validator" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 <h3>Web Manifest Validator</h3>
+  <template is="dom-bind" id="t">
+  <paper-drawer-panel>
+    <paper-header-panel drawer>
+      <nav>
+      <paper-toolbar>
+        <span>Web Manifest Validator</span>
+      </paper-toolbar>
+      <paper-menu selected='0'>
+        <template is="dom-repeat" items="{{pages}}">
+          <paper-item>
+            {{ item.name }}
+          </paper-item>
+        </template>
+<!--
+        <paper-item>
+          <iron-icon icon='create'></iron-icon>
+          <paper-item-body>
+            Edit Manifest
+          </paper-item-body>
+        </paper-item>
+        <paper-item>
+          <iron-icon icon='file-upload'></iron-icon>
+          <paper-item-body>
+            Upload Manifest
+          </paper-item-body>
+        </paper-item>
+        <paper-item>
+          <iron-icon icon='link'></iron-icon>
+          <paper-item-body>
+            Link to Manifest
+          </paper-item-body>
+        </paper-item>
+-->
+      </paper-menu>
+      </nav>
+    </paper-header-panel>
+    <paper-header-panel main>
+      <div layout horizontal center-center fit>
+        <neon-animated-pages attrForSelected='hash' selected='0' transitions='slide-from-right'>
+          <section layout vertical center-center>
+            <div>Single</div>
+          </section>
+          <section layout vertical center-center>
+            <div>page</div>
+          </section>
+        </neon-animated-pages>
+      </div>
+    </paper-header-panel>
+  </paper-drawer-panel>
+  </template>
+<!--
+  <h3>Web Manifest Validator</h3>
   <div>This page is meant to be used to test the validity of a Web Manifest
   before deployment. The parser follows the rules from the <a href=
   "https://w3c.github.io/manifest/">W3C specification</a></div>
@@ -39,5 +99,14 @@
     <legend>Tips</legend>
     <ul id='tip'></ul>
   </fieldset>
+-->
 </body>
+<script>
+  var template = document.querySelector('template[is="dom-bind"]');
+  template.pages = [
+    { name: 'foo', hash: 'foo' },
+    { name: 'bar', hash: 'bar' },
+    { name: 'blah', hash: 'blah' }
+  ];
+</script>
 </html>

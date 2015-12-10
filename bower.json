@@ -1,0 +1,19 @@
+{
+  "name": "manifest-validator",
+  "version": "0.0.0",
+  "homepage": "https://github.com/mounirlamouri/manifest-validator",
+  "authors": [
+    "Mounir Lamouri <mounir@lamouri.fr>"
+  ],
+  "description": "Web Manifest Validator",
+  "private": true,
+  "dependencies": {
+    "iron-icons": "PolymerElements/iron-icons#~1.0.4",
+    "neon-animation": "PolymerElements/neon-animation#~1.0.8",
+    "paper-drawer-panel": "PolymerElements/paper-drawer-panel#~1.0.4",
+    "paper-item": "PolymerElements/paper-item#~1.0.7",
+    "paper-menu": "PolymerElements/paper-menu#~1.1.1",
+    "paper-toolbar": "PolymerElements/paper-toolbar#~1.0.4",
+    "polymer": "Polymer/polymer#^1.2.0"
+  }
+}
