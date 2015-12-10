@@ -1,6 +1,5 @@
-"use strict";
-
 var ManifestParser = (function() {
+  "use strict";
 
   var _json_input = {};
   var _manifest = {};
@@ -267,3 +266,7 @@ var ManifestParser = (function() {
     success: function() { return _success; }
   };
 })();
+
+if (typeof module !== 'undefined' && module.exports) {
+ module.exports = ManifestParser;
+}
