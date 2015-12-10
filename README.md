@@ -2,4 +2,4 @@
 Web Manifest Validator
 
 
-[Try it live](http://mounirlamouri.github.io/manifest-validator/)
+[Try it live](https://mounirlamouri.github.io/manifest-validator/)
