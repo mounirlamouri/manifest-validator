@@ -2,3 +2,6 @@ language: node_js
 node_js:
   - "node"
   - "0.10"
+branches:
+  only:
+    - gh-pages # ignored by default
