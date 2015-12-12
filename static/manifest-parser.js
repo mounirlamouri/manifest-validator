@@ -277,5 +277,6 @@ var ManifestParser = (function() {
 })();
 
 if (typeof module !== 'undefined' && module.exports) {
- module.exports = ManifestParser;
+  document = require('jsdom').jsdom('<DOCTYPE html>');
+  module.exports = ManifestParser;
 }

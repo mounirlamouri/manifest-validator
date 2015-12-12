@@ -6,7 +6,9 @@
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha tests/manifest-parser-tests.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "jsdom": "^7.0.0"
+  },
   "devDependencies": {
     "mocha": "latest"
   }
