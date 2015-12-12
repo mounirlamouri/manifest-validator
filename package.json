@@ -10,6 +10,6 @@
     "jsdom": "^7.0.0"
   },
   "devDependencies": {
-    "mocha": "latest"
+    "mocha": "^2.3.4"
   }
 }
