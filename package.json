@@ -4,7 +4,7 @@
   "main": "manifest-parser.js",
   "version": "0.1.0",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha tests/manifest-parser-tests.js"
+    "test": "mocha"
   },
   "dependencies": {
     "jsdom": "^7.0.0"
