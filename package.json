@@ -5,7 +5,8 @@
   "version": "0.1.0",
   "scripts": {
     "test": "mocha",
-    "install": "engine-deps"
+    "install": "engine-deps",
+    "lint": "jscs manifest-parser.js"
   },
   "dependencies": {
     "engine-deps": "^0.1.0"
@@ -25,6 +26,7 @@
     }
   },
   "devDependencies": {
+    "jscs": "^2.7.0",
     "mocha": "^2.3.4"
   }
 }
