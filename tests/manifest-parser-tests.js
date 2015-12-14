@@ -1,5 +1,5 @@
 var ManifestParser = require('../manifest-parser.js');
-var assert = require('assert');
+var assert = require('chai').assert;
 
 describe('Manifest Parser', function() {
   it('should not parse empty string input', function() {
@@ -44,6 +44,13 @@ describe('Manifest Parser', function() {
     assert.equal(null, ManifestParser.manifest().orientation);
     assert.equal(null, ManifestParser.manifest().theme_color);
     assert.equal(null, ManifestParser.manifest().background_color);
+  });
+
+  it('fails on single quotes', function() {
+    ManifestParser.parse('{\'foo\': \'bar\'}');
+    assert.equal(false, ManifestParser.success());
+    assert.match(ManifestParser.logs()[0],
+	/^File isn't valid JSON: Double quotes are considered valid JSON, single quotes aren't. Please use double quotes./);
   });
 
   describe('name parsing', function() {

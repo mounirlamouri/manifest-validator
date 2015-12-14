@@ -229,7 +229,11 @@ var ManifestParser = (function() {
     try {
       _json_input = JSON.parse(string);
     } catch (e) {
-      _logs.push("File isn't valid JSON: " + e);
+      if (e.message === "Unexpected token '") {
+        _logs.push("File isn't valid JSON: Double quotes are considered valid JSON, single quotes aren't. Please use double quotes." + e.stack);
+      } else {
+        _logs.push("File isn't valid JSON: " + e);
+      }
       _success = false;
       return;
     }
