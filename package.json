@@ -4,10 +4,25 @@
   "main": "manifest-parser.js",
   "version": "0.1.0",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "install": "engine-deps"
   },
   "dependencies": {
-    "jsdom": "^7.0.0"
+    "engine-deps": "^0.1.0"
+  },
+  "engine-deps": {
+    "^5": {
+      "jsdom": "^7"
+    },
+    "^4": {
+      "jsdom": "^7"
+    },
+    "^0.12": {
+      "jsdom":  "^3"
+    },
+    "^0.10": {
+      "jsdom":  "^3"
+    }
   },
   "devDependencies": {
     "mocha": "^2.3.4"
