@@ -232,7 +232,12 @@ var ManifestParser = (function() {
       _json_input = JSON.parse(string);
     } catch (e) {
       _logs.push("File isn't valid JSON: " + e);
-      _tips.push('Your JSON failed to parse, these are the main reasons why JSON parsing usually fails:\n - Double quotes should be used around property names and for strings. Single quotes are not valid.\n - JSON specification disallow trailing comma after the last property even if some implementations allow it.');
+      _tips.push('Your JSON failed to parse, these are the main reasons why ' +
+	  'JSON parsing usually fails:\n' +
+	  '- Double quotes should be used around property names and for ' +
+          'strings. Single quotes are not valid.\n' +
+	  '- JSON specification disallow trailing comma after the last ' +
+          'property even if some implementations allow it.');
       _success = false;
       return;
     }
