@@ -10,6 +10,7 @@ before_install:
   -in manifest-validator-appspot.json.enc -out manifest-validator-appspot.json -d
 deploy:
   provider: gae
+  skip_cleanup: true
   keyfile: manifest-validator-appspot.json
   project: manifest-validator
   default: true
