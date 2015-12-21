@@ -11,4 +11,6 @@ deploy:
   keyfile: manifest-validator-appspot.json
   project: manifest-validator
   default: true
-  on: gh-pages
+  on:
+    branch: master
+    node: '0.10'
