@@ -1,0 +1,32 @@
+{
+  "name": "manifest-parser",
+  "description": "A CLI tool to validate your app manifest file",
+  "main": "manifest-parser.js",
+  "version": "0.1.0",
+  "scripts": {
+    "test": "mocha",
+    "install": "engine-deps",
+    "lint": "jscs manifest-parser.js"
+  },
+  "dependencies": {
+    "engine-deps": "^0.1.0"
+  },
+  "engine-deps": {
+    "^5": {
+      "jsdom": "^7"
+    },
+    "^4": {
+      "jsdom": "^7"
+    },
+    "^0.12": {
+      "jsdom":  "^3"
+    },
+    "^0.10": {
+      "jsdom":  "^3"
+    }
+  },
+  "devDependencies": {
+    "jscs": "^2.7.0",
+    "mocha": "^2.3.4"
+  }
+}

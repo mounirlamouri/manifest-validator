@@ -1,10 +1,15 @@
 language: node_js
 node_js:
-- node
-- '0.10'
+  - "0.10"
+  - "0.12"
+  - "4"
+  - "5"
 branches:
   only:
-  - gh-pages
+    - gh-pages
+script:
+  - npm test
+  - npm run lint
 before_deploy:
 - openssl aes-256-cbc -K $encrypted_cf5132444c1b_key -iv $encrypted_cf5132444c1b_iv
   -in manifest-validator-appspot.json.enc -out manifest-validator-appspot.json -d
