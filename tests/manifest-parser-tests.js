@@ -1,4 +1,4 @@
-var ManifestParser = require('../manifest-parser.js');
+var ManifestParser = require('../static/manifest-parser.js');
 var assert = require('assert');
 
 describe('Manifest Parser', function() {
