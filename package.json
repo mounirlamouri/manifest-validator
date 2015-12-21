@@ -1,8 +1,8 @@
 {
   "name": "manifest-parser",
   "description": "A CLI tool to validate your app manifest file",
-  "main": "manifest-parser.js",
-  "version": "0.1.0",
+  "main": "static/manifest-parser.js",
+  "version": "0.1.1",
   "scripts": {
     "test": "mocha",
     "install": "engine-deps",
