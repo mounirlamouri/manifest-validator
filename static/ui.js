@@ -25,7 +25,7 @@ function _clearTips() {
 
 function _tip(str) {
   var line = document.createElement('li');
-  line.textContent = str;
+  line.innerHTML = str;
   document.querySelector('#tip').appendChild(line);
 }
 
