@@ -12,4 +12,4 @@ Changes will only be accepted if they pass the tests. Changes merged to the mast
 
 This project used to be hosted with GitHub Pages. We moved over to Google App Engine but we kept a _gh-pages_ branch that redirects to the new URL in order to not break existing links.
 
-[![Build Status](https://travis-ci.org/mounirlamouri/manifest-validator.svg?branch=gh-pages)](https://travis-ci.org/mounirlamouri/manifest-validator)
+[![Build Status](https://travis-ci.org/mounirlamouri/manifest-validator.svg)](https://travis-ci.org/mounirlamouri/manifest-validator)
