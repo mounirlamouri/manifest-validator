@@ -12,4 +12,5 @@ deploy:
   provider: gae
   keyfile: manifest-validator-appspot.json
   project: manifest-validator
+  default: true
   on: gh-pages
