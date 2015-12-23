@@ -1,43 +1,63 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset='utf-8'>
-  <title>Web Manifest Validator</title>
-  <script src='ui.js' async></script>
-  <script src='manifest-parser.js' async></script>
-</head>
-<body>
-<a href="https://github.com/mounirlamouri/manifest-validator" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-<h3>Web Manifest Validator</h3>
-  <div>This page is meant to be used to test the validity of a Web Manifest
-  before deployment. The parser follows the rules from the <a href=
-  "https://w3c.github.io/manifest/">W3C specification</a></div>
-  <br>
-  <div style="font-weight: bold;">NOTE: the parser should be working. Next step
-  is for the validator to take URLs instead of local files.</div>
-  <br>
-  <fieldset>
-    <legend>Paste a Manifest</legend>
-    <textarea id='manifest-source' cols=80 rows=20 style="font-family: Courier New,monospace;"></textarea>
-    <br>
-    <button id='check-source'>Check</button>
-  </fieldset>
+<html lang="en">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Test the validity of a Web Manifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web Manifest Validator</title>
 
-  <div>OR</div>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" type='text/css'>
+    <link rel="stylesheet" href="material.min.css">
+    <link rel="stylesheet" href="styles.css">
 
-  <fieldset>
-    <legend>Upload a Manifest</legend>
-    <input type='file'>
-  </fieldset>
-
-  <fieldset>
-    <legend>Logs</legend>
-    <div id='log'></div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Tips</legend>
-    <ul id='tip'></ul>
-  </fieldset>
-</body>
+    <script src="material.min.js" async></script>
+    <script src="ui.js" async></script>
+    <script src="manifest-parser.js" async></script>
+  </head>
+  <body>
+    <div class="layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
+      <header class="header mdl-layout__header mdl-layout__header--scroll mdl-color--grey-100 mdl-color-text--grey-800">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Web Manifest Validator</span>
+        </div>
+      </header>
+      <div class="ribbon"></div>
+      <main class="main mdl-layout__content">
+        <div class="container mdl-grid">
+          <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+          <div class="content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+            <p>
+              This page is meant to be used to test the validity of a Web Manifest. The parser follows the rules from the <a href="https://w3c.github.io/manifest/">W3C specification</a>.
+            </p>
+            <h4>Paste a Web Manifest</h4>
+            <p>
+              <textarea id="manifest-source" style="font-family: Courier New,monospace; width: 100%; height: 176px;"></textarea>
+              <button id="check-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Validate
+              </button>
+            </p>
+            <h4>Upload a Web Manifest</h4>
+            <p>
+              <input type="file">
+            </p>
+            <p>
+              <div id="log"></div>
+            </p>
+            <p>
+              <div id="tip"></div>
+            </p>
+          </div>
+        </div>
+        <footer class="footer mdl-mini-footer">
+          <div class="mdl-mini-footer--left-section">
+            <ul class="mdl-mini-footer--link-list">
+              <li><a href="https://github.com/mounirlamouri/manifest-validator">View source</a></li>
+              <li><a href="https://w3c.github.io/manifest/">W3C specification</a></li>
+            </ul>
+          </div>
+        </footer>
+      </main>
+    </div>
+  </body>
 </html>
