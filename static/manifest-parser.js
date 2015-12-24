@@ -246,6 +246,7 @@ var ManifestParser = (function() {
   function _parse(string) {
     // TODO: temporary while ManifestParser is a collection of static methods.
     _logs = [];
+    _tips = [];
     _success = true;
 
     try {
@@ -263,7 +264,7 @@ var ManifestParser = (function() {
       return;
     }
 
-    _logs.push('JSON parsed successfuly.');
+    _logs.push('JSON parsed successfully.');
 
     _manifest.name = _parseName();
     //jscs:disable requireCamelCaseOrUpperCaseIdentifiers
