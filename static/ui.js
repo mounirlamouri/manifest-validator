@@ -11,11 +11,14 @@ function _log(str, className) {
   document.querySelector('#log').appendChild(line);
 }
 
-function _showParserLogs() {
+function _showParserLogs(options) {
   if (!ManifestParser.success()) {
     _log('Error: Manifest is invalid!', 'error');
   } else {
     _log('Success: Manifest is valid!', 'success');
+  }
+  if (options && options.manifestUrl) {
+    _log('Manifest URL: ' + options.manifestUrl);
   }
 
   ManifestParser.logs().forEach(function(log) {
@@ -59,6 +62,30 @@ document.querySelector('input[type=file]').onchange = function() {
     _showParserLogs();
     _showParserTips();
   };
+}
+
+document.querySelector('#check-website-url').onclick = function(e) {
+  _clearLogs();
+  _clearTips();
+
+  var websiteUrl = document.querySelector('#website-url').value;
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/fetch?websiteUrl=' + websiteUrl);
+  xhr.responseType = 'json';
+  xhr.onload = function() {
+    if (this.response.error) {
+      _log(this.response.error, 'error');
+    } else {
+      ManifestParser.parse(this.response.content);
+      _showParserLogs({manifestUrl : this.response.manifestUrl});
+      _showParserTips();
+    }
+    document.querySelector('#log').scrollIntoView(false);
+  }
+  xhr.onerror = function() {
+    _log('Error: Cannot fetch website URL.', 'error');
+  };
+  xhr.send();
 }
 
 document.querySelector('#check-source').onclick = function(e) {

@@ -8,7 +8,7 @@
     <title>Web Manifest Validator</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" type='text/css'>
-    <link rel="stylesheet" href="material.min.css">
+    <link rel="stylesheet" href="material.light_blue-red.min.css">
     <link rel="stylesheet" href="styles.css">
 
     <script src="material.min.js" async></script>
@@ -30,6 +30,17 @@
             <p>
               This page is meant to be used to test the validity of a Web Manifest. The parser follows the rules from the <a href="https://w3c.github.io/manifest/">W3C specification</a>.
             </p>
+            <h4>Enter a Website URL</h4>
+            <p>
+              <div class="mdl-textfield mdl-js-textfield">
+               <input class="mdl-textfield__input" type="url" id="website-url">
+               <label class="mdl-textfield__label" for="website-url">https://...</label>
+               <span class="mdl-textfield__error">This is not a valid URL</span>
+              </div>
+              <button id="check-website-url" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Validate
+              </button>
+            </p>
             <h4>Paste a Web Manifest</h4>
             <p>
               <textarea id="manifest-source" style="font-family: Courier New,monospace; width: 100%; height: 176px;"></textarea>
@@ -37,7 +48,7 @@
                 Validate
               </button>
             </p>
-            <h4>Upload a Web Manifest</h4>
+            <h4>Upload a Web Manifest File</h4>
             <p>
               <input type="file">
             </p>

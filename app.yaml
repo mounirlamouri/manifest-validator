@@ -3,7 +3,7 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /
+- url: /(fetch)?
   script: main.app
   secure: always
 
@@ -11,3 +11,7 @@ handlers:
   static_dir: static/
   secure: always
 
+
+libraries:
+- name: lxml
+  version: "2.3.5"
