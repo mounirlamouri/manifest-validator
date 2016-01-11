@@ -8,7 +8,7 @@ from google.appengine.api import urlfetch
 from google.appengine.ext.webapp import template
 
 
-class FetchWebsiteHandler(webapp2.RequestHandler):
+class CheckWebsiteHandler(webapp2.RequestHandler):
   def post(self):
     website_url = self.request.get('websiteUrl')
     response = {}
@@ -33,13 +33,12 @@ class FetchWebsiteHandler(webapp2.RequestHandler):
               response['websiteUrl'] = website_url
               response['manifestUrl'] = manifest_url
               response['content'] = manifest_result.content
+              # TODO Check CORS headers
             else:
-              # TODO Check more stuff
               response['error'] = 'Manifest %s is not HTTP 200.' % manifest_url
           except (urlfetch.InvalidURLError, urlfetch.DownloadError) as e:
             response['error'] = repr(e)
       else:
-        # TODO Check more stuff
         response['error'] = 'Website %s is not HTTP 200.' % website_url
     except (urlfetch.InvalidURLError, urlfetch.DownloadError) as e:
       response['error'] = repr(e)
@@ -54,5 +53,5 @@ class MainHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
   ('/', MainHandler),
-  ('/fetch', FetchWebsiteHandler),
+  ('/check', CheckWebsiteHandler),
 ], debug=True)

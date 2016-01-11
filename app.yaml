@@ -3,7 +3,7 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /(fetch)?
+- url: /(check)?
   script: main.app
   secure: always
 

@@ -69,8 +69,10 @@ document.querySelector('#check-website-url').onclick = function(e) {
   _clearTips();
 
   var websiteUrl = document.querySelector('#website-url').value;
+  var data = new FormData();
+  data.append('websiteUrl', websiteUrl);
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', '/fetch?websiteUrl=' + websiteUrl);
+  xhr.open('POST', '/check');
   xhr.responseType = 'json';
   xhr.onload = function() {
     if (this.response.error) {
@@ -83,9 +85,9 @@ document.querySelector('#check-website-url').onclick = function(e) {
     document.querySelector('#log').scrollIntoView(false);
   }
   xhr.onerror = function() {
-    _log('Error: Cannot fetch website URL.', 'error');
+    _log('Error: Cannot check website URL.', 'error');
   };
-  xhr.send();
+  xhr.send(data);
 }
 
 document.querySelector('#check-source').onclick = function(e) {
