@@ -3,13 +3,17 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /
+- url: /(check)?
   script: main.app
   secure: always
 
 - url: /*
   static_dir: static/
   secure: always
+
+libraries:
+- name: lxml
+  version: "2.3.5"
 
 skip_files:
 - ^(.*/)?#.*#$
