@@ -289,11 +289,11 @@ var ManifestParser = (function() {
     _logs.push('Parsed `orientation` property is: ' +
         _manifest.orientation);
     _logs.push('Parsed `icons` property is: ' +
-        _manifest.icons);
+        JSON.stringify(_manifest.icons, null, 4));
     _logs.push('Parsed `related_applications` property is: ' +
-        _manifest.related_applications);
+        JSON.stringify(_manifest.related_applications, null, 4));
     _logs.push('Parsed `prefer_related_applications` property is: ' +
-        _manifest.prefer_related_applications);
+        JSON.stringify(_manifest.prefer_related_applications, null, 4));
     _logs.push('Parsed `theme_color` property is: ' +
         _manifest.theme_color);
     _logs.push('Parsed `background_color` property is: ' +

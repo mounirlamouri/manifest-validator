@@ -11,7 +11,14 @@ handlers:
   static_dir: static/
   secure: always
 
-
 libraries:
 - name: lxml
   version: "2.3.5"
+
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- ^node_modules/.*$

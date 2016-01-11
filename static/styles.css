@@ -48,6 +48,10 @@
   margin: 48px 0 12px 0;
 }
 
+#log div {
+  white-space: pre-wrap;
+}
+
 .success {
   color: #4CAF50;
 }
