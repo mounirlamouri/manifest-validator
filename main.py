@@ -16,6 +16,7 @@ class CheckWebsiteHandler(webapp2.RequestHandler):
       # Fetch website URL.
       website_result = urlfetch.fetch(website_url)
       if website_result.status_code == 200:
+        website_url = website_result.final_url or website_url
         # Parse the content
         parser = etree.HTMLParser(encoding='utf-8')
         # TODO Handle more encoding.
@@ -29,15 +30,19 @@ class CheckWebsiteHandler(webapp2.RequestHandler):
             manifest_url = urljoin(website_url, manifest_url)
           try:
             manifest_result = urlfetch.fetch(manifest_url)
+            response['manifestUrl'] = manifest_url
+            response['websiteUrl'] = website_url
             if manifest_result.status_code == 200:
-              response['websiteUrl'] = website_url
-              response['manifestUrl'] = manifest_url
+              response['manifestUrl'] = manifest_result.final_url or manifest_url
+              if 'Access-Control-Allow-Origin' in manifest_result.headers:
+                response['originHeader'] = manifest_result.headers['Access-Control-Allow-Origin']
               response['content'] = manifest_result.content
-              # TODO Check CORS headers
             else:
               response['error'] = 'Manifest %s is not HTTP 200.' % manifest_url
           except (urlfetch.InvalidURLError, urlfetch.DownloadError) as e:
             response['error'] = repr(e)
+        else:
+          response['error'] = 'No manifest detected at %s' % website_url
       else:
         response['error'] = 'Website %s is not HTTP 200.' % website_url
     except (urlfetch.InvalidURLError, urlfetch.DownloadError) as e:

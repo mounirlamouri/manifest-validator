@@ -77,10 +77,23 @@ document.querySelector('#check-website-url').onclick = function(e) {
   xhr.onload = function() {
     if (this.response.error) {
       _log(this.response.error, 'error');
+      if (this.response.manifestUrl) {
+        _log('Manifest URL: ' + this.response.manifestUrl);
+      }
     } else {
-      ManifestParser.parse(this.response.content);
-      _showParserLogs({manifestUrl : this.response.manifestUrl});
-      _showParserTips();
+      var manifestUrl = new URL(this.response.manifestUrl);
+      var websiteUrl = new URL(this.response.websiteUrl);
+      if (manifestUrl.origin == websiteUrl.origin ||
+          (this.response.originHeader &&
+           (this.response.originHeader.includes(websiteUrl.origin) ||
+           this.response.originHeader == '*'))) {
+        ManifestParser.parse(this.response.content);
+        _showParserLogs({manifestUrl : this.response.manifestUrl});
+        _showParserTips();
+      } else {
+        _log('Access-Control-Allow-Origin HTTP header is not properly set.', 'error');
+        _log('Manifest URL: ' + this.response.manifestUrl);
+      }
     }
     document.querySelector('#log').scrollIntoView(false);
   }
