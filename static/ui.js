@@ -95,7 +95,7 @@ document.querySelector('#check-website-url').onclick = function(e) {
         _log('Manifest URL: ' + this.response.manifestUrl);
       }
     }
-    document.querySelector('#log').scrollIntoView(false);
+    document.querySelector('#log').scrollIntoView(true);
   }
   xhr.onerror = function() {
     _log('Error: Cannot check website URL.', 'error');
