@@ -20,6 +20,9 @@ var ManifestParser = (function() {
                                      'portrait-secondary',
                                      'landscape-primary',
                                      'landscape-secondary'];
+  var ALLOWED_DIR_VALUES = ['ltr',
+                             'rtl',
+                             'auto',];
 
   function _parseString(args) {
     var object = args.object;
@@ -243,6 +246,21 @@ var ManifestParser = (function() {
     return _parseColor({object: _jsonInput, property: 'background_color'});
   }
 
+  function _parseDir() {
+    var dir = _parseString({object: _jsonInput, property: 'dir', trim: true});
+    if (dir === undefined) {
+      return 'auto';
+    }
+
+    if (ALLOWED_DIR_VALUES.indexOf(dir) == -1) {
+      _logs.push('ERROR: \'dir\' has an invalid value' +
+          ', so will default to "auto"');
+      return 'auto';
+    }
+
+    return dir;
+  }
+
   function _parse(string) {
     // TODO: temporary while ManifestParser is a collection of static methods.
     _logs = [];
@@ -266,6 +284,7 @@ var ManifestParser = (function() {
 
     _logs.push('JSON parsed successfully.');
 
+    _manifest.dir = _parseDir();
     _manifest.name = _parseName();
     //jscs:disable requireCamelCaseOrUpperCaseIdentifiers
     _manifest.short_name = _parseShortName();

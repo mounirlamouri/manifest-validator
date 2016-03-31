@@ -93,4 +93,61 @@ describe('Manifest Parser', function() {
       assert.equal(null, ManifestParser.manifest().short_name);
     });
   });
+
+  describe('dir parsing', function(){
+    it('defaults to auto when value is missing', function(){
+      ManifestParser.parse('{}');
+      assert.equal(true, ManifestParser.success());
+      assert.equal('auto', ManifestParser.manifest().dir);
+    });
+
+    it("defaults to auto when value is invalid", function(){
+      ManifestParser.parse('{"dir": "invalid string"}');
+      assert.equal(true, ManifestParser.success());
+      assert.equal('auto', ManifestParser.manifest().dir);
+      ManifestParser.parse('{"dir": ["invalid value"]}');
+      assert.equal(true, ManifestParser.success());
+      assert.equal('auto', ManifestParser.manifest().dir);
+      ManifestParser.parse('{"dir": {"ltr": "rtl"}}');
+      assert.equal(true, ManifestParser.success());
+      assert.equal('auto', ManifestParser.manifest().dir);
+      ManifestParser.parse('{"dir": "RTL"}');
+      assert.equal(true, ManifestParser.success());
+      assert.equal('auto', ManifestParser.manifest().dir);
+      ManifestParser.parse('{"dir": "lTr"}');
+      assert.equal(true, ManifestParser.success());
+      assert.equal('auto', ManifestParser.manifest().dir);
+      ManifestParser.parse('{"dir": "AuTo"}');
+      assert.equal(true, ManifestParser.success());
+      assert.equal('auto', ManifestParser.manifest().dir);
+    });
+
+    it("parses auto as a value", function(){
+      ManifestParser.parse('{"dir": "auto"}');
+      assert.equal(true, ManifestParser.success());
+      assert.equal('auto', ManifestParser.manifest().dir);
+      ManifestParser.parse(JSON.stringify({"dir": "\n\t\t\n auto \n\n\t\t\t\t" }));
+      assert.equal(true, ManifestParser.success());
+      assert.equal('auto', ManifestParser.manifest().dir);
+    });
+
+    it("parses rtl as a value", function(){
+      ManifestParser.parse('{"dir": "rtl"}');
+      assert.equal(true, ManifestParser.success());
+      assert.equal('rtl', ManifestParser.manifest().dir);
+      ManifestParser.parse(JSON.stringify({"dir": "\n\t\t\n rtl \n\n\t\t\t\t" }));
+      assert.equal(true, ManifestParser.success());
+      assert.equal('rtl', ManifestParser.manifest().dir);
+    });
+
+    it("parses ltr as a value", function(){
+      ManifestParser.parse('{"dir": "ltr"}');
+      assert.equal(true, ManifestParser.success());
+      assert.equal('ltr', ManifestParser.manifest().dir);
+      ManifestParser.parse(JSON.stringify({"dir": "\n\t\t\n ltr \n\n\t\t\t\t" }));
+      assert.equal(true, ManifestParser.success());
+      assert.equal('ltr', ManifestParser.manifest().dir);
+    });
+
+  });
 });
