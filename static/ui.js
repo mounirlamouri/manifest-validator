@@ -112,3 +112,11 @@ document.querySelector('#check-source').onclick = function(e) {
   _showParserTips();
   document.querySelector('#log').scrollIntoView(false);
 }
+
+window.addEventListener('mdl-componentupgraded', function() {
+  var websiteUrl = location.hash.substr(1);
+  var websiteUrlInput = document.querySelector('#website-url').parentElement.MaterialTextfield;
+  if (websiteUrl && websiteUrlInput) {
+    websiteUrlInput.change(websiteUrl);
+  }
+});
