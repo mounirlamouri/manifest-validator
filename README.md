@@ -2,6 +2,8 @@
 
 Try it live: [https://manifest-validator.appspot.com/](https://manifest-validator.appspot.com/)
 
+Tip: You can prepopulate a website URL with [https://manifest-validator.appspot.com/#https://example.com](https://manifest-validator.appspot.com/#https://example.com)
+
 ## How to contribute?
 
 We are using travis for continuous integration and Google App Engine to host the website. In order to test your changes locally, you will need to have the [Google Cloud SDK](https://cloud.google.com/sdk/) installed and use `dev_appserver.py`.
