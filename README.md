@@ -2,7 +2,7 @@
 
 Try it live: [https://manifest-validator.appspot.com/](https://manifest-validator.appspot.com/)
 
-Tip: You can prepopulate a website URL with [https://manifest-validator.appspot.com/#https://example.com](https://manifest-validator.appspot.com/#https://example.com)
+Tip: To quickly validate your own site's manifest, you can type into the address bar: "[https://manifest-validator.appspot.com/#https://example.com](https://manifest-validator.appspot.com/#https://example.com)", substituting "example.com" with your own site's URL!"
 
 ## How to contribute?
 
